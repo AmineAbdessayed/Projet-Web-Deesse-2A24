@@ -1,7 +1,59 @@
+<?php
+    include_once 'C:/xampp/htdocs/temp/Model/categorie.php';
+    include_once 'C:/xampp/htdocs/temp/Controller/categorieC.php';
+
+    $error = "";
+
+    // create product
+    $categorie = null;
+
+    // create an instance of the controller
+    $categorieC = new categorieC();
+  
+
+	
+
+    if (
+        isset($_POST["id_categorie"]) &&
+        isset($_POST["nom"])
+
+    ) {
+        if (
+           
+			!empty($_POST["id_categorie"]) &&
+            !empty($_POST["nom"])
+        ) {
+            $categorie = new categorie(
+            $_POST["id_categorie"],
+            $_POST["nom"]
+
+            );
+            $categorieC->ajoutercategorie($categorie);
+            header('Location:gestion_categorie.php');
+        }
+        else
+            $error = "Missing information";
+    }
+
+
+    
+?>
+
+
+
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html lang="en">
 
 <head>
+   
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Meta -->
+    <title>gestion_cathegorie</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -12,7 +64,7 @@
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Déesse</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <link rel="canonical" href="http://localhost/temp/View/deesse.php" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
     <!-- Custom CSS -->
@@ -23,10 +75,12 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 </head>
 
 <body>
-    <!-- ============================================================== -->
+    <!-- Pre-loader start -->
+<!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
     <div class="preloader">
@@ -112,7 +166,7 @@
                             
                         </li>
                         <li class="text-center p-20 upgrade-btn">
-                            <a href="https://www.wrappixel.com/templates/ampleadmin/"
+                            <a href="http://localhost/temp/View/index.html"
                                 class="btn d-grid btn-danger text-white" target="_blank">
                                 Déesse</a>
                         </li>
@@ -193,7 +247,7 @@
                 <div class="row">
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-12">
-                        <h5 class="m-b-10">Gestion de produits</h5>
+                        <h5 class="m-b-10">Gestion de Cathegories</h5>
                             <div class="white-box">
                                 <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/mk2.jpeg">
                                             
@@ -207,92 +261,254 @@
                         </div>
                     <!-- Column -->
                     <!-- Column -->
-                    <div class="col-lg-8 col-xlg-9 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <form class="form-horizontal form-material">
-                                    <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">Identifiant</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder=".............."
-                                                class="form-control p-0 border-0"> </div>
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <label for="example-email" class="col-md-12 p-0">Nom</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="email" placeholder="............."
-                                                class="form-control p-0 border-0" name="example-email"
-                                                id="example-email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <label for="example-email" class="col-md-12 p-0">Quantité</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="email" placeholder="............."
-                                                class="form-control p-0 border-0" name="example-email"
-                                                id="example-email">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">Prix</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <input type="text" placeholder="............."
-                                                class="form-control p-0 border-0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <label class="col-md-12 p-0">Description</label>
-                                        <div class="col-md-12 border-bottom p-0">
-                                            <textarea rows="5" class="form-control p-0 border-0"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <label class="col-sm-12">cathegories
-                                        </label>
 
-                                        <div class="col-sm-12 border-bottom">
-                                            <select class="form-select shadow-none p-0 border-0 form-control-line">
-                                                
-                                                <option>Femme</option>
-                                                <option>Homme</option>
-                                            </select>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                  
+                                    <!-- Page body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Ajout cathegorie</h5>
+                                                        <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+                                                    </div>
+                                                    <div class="card-block">
+                                                    <div id="error">
+                                                        <?php echo $error; ?>
+                                                    </div>
+                                                    <form action=""     class="form-material" method="POST" >
+                                                   
+                                                    <div class="form-group form-default">
+                                                                <input type="number" name="id_categorie" id="id_categorie"   class="form-control" required="" >
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Identifiant</label>
+                                                            </div>
+                                                            
+                                                          
+                                                            
+                                                            <div class="form-group form-default">
+                                                                <input type="text"  id="nom" name="nom"  class="form-control"required="">
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Nom</label>
+                                                            </div>
+                                                            <input type="submit" value="Add">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                           
                                         </div>
-                                    </div>
-                                    <div class="form-group mb-4">
-                                        <div class="col-sm-12">
-                                            <button class="btn btn-success">Ajouter product</button> <button class="btn btn-success">Afficher product</button> <button class="btn btn-success">Modifier product</button> <button class="btn btn-success">Supprimer product</button>
-                                        </div>
-
                                         
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                </div>
+                                                
+                                                           
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <!-- Main-body end -->
+                                                    <div id="styleSelector">
 
-                
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
-            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Warning Section Starts -->
+                            <!-- Older IE warning message -->
+<!--[if lt IE 10]>
+<div class="ie-warning">
+    <h1>Warning!!</h1>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers
+        to access this website.</p>
+    <div class="iew-container">
+        <ul class="iew-download">
+            <li>
+                <a href="http://www.google.com/chrome/">
+                    <img src="assets/images/browser/chrome.png" alt="Chrome">
+                    <div>Chrome</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.mozilla.org/en-US/firefox/new/">
+                    <img src="assets/images/browser/firefox.png" alt="Firefox">
+                    <div>Firefox</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.opera.com">
+                    <img src="assets/images/browser/opera.png" alt="Opera">
+                    <div>Opera</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.apple.com/safari/">
+                    <img src="assets/images/browser/safari.png" alt="Safari">
+                    <div>Safari</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                    <img src="assets/images/browser/ie.png" alt="">
+                    <div>IE (9 & above)</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <p>Sorry for the inconvenience!</p>
+</div>
+<![endif]-->
+<!-- Warning Section Ends -->
+<!-- Required Jquery -->
+
+
+
+<!-- <script>
+    
+    function saisirNom() {
+                var name = document.getElementById('nom_ev').value;
+                var regex = /^[A-Za-z]+$/;
+
+
+                if (!(regex.test(name))) {
+                    document.getElementById("errorName").textContent = "Name has to be composed of letters only!";
+                    document.getElementById("errorName").style.color = "red";
+                    return 0;
+                } 
+                else if (name[0] == name[0].toLowerCase()) {
+                    document.getElementById("errorName").textContent = "Name has to start by a capital letter!";
+                    document.getElementById("errorName").style.color = "red";
+                    return 0;
+                }
+                 else {
+                    document.getElementById("errorName").textContent = "Name Verified";
+                    document.getElementById("errorName").style.color = "green";
+                    return 1;
+                }
+    }
+    function saisirNom2() {
+                var name = document.getElementById('lieu').value;
+                var regex = /^[A-Za-z]+$/;
+
+
+                if (!(regex.test(name))) {
+                    document.getElementById("errorName2").textContent = "Name has to be composed of letters only!";
+                    document.getElementById("errorName2").style.color = "red";
+                    return 0;
+                } 
+                else if (name[0] == name[0].toLowerCase()) {
+                    document.getElementById("errorName2").textContent = "Name has to start by a capital letter!";
+                    document.getElementById("errorName2").style.color = "red";
+                    return 0;
+                }
+                 else {
+                    document.getElementById("errorName2").textContent = "Name Verified";
+                    document.getElementById("errorName2").style.color = "green";
+                    return 1;
+                }
+    }
+   
+   
+
+    
+
+
+function spot()
+{
+    var nbm = document.getElementById("spot").value;
+
+    if (nbm<1 || nbm>2) {
+        document.getElementById("errorspot").textContent = "nombre  doit entre 1 et 2 ";
+        document.getElementById("errorspot").style.color = "red";
+        return 0;
+    }
+    else
+    {
+        document.getElementById("errorspot").textContent = "Number Verified";
+        document.getElementById("errorspot").style.color = "green";
+            return 1;
+    }
+
+
+
+}
+
+function saisirdate_recuperation() {
+    var DateFond = document.getElementById("date_ev").value;
+    var dat=new Date();
+
+    if (new Date(DateFond).getTime() <= dat.getTime())
+    {
+        document.getElementById("errorDF").textContent = "date superiour a la date actuel ";
+        document.getElementById("errorDF").style.color = "red";
+        return 0;
+    }
+    else
+    {
+        document.getElementById("errorDF").textContent = "date verified";
+        document.getElementById("errorDF").style.color="green";
+        return 1;
+    }
+}
+function saisirdate_fin() {
+   
+    var DateFond = document.getElementById("date_fin").value;
+    var DateFond2 = document.getElementById("date_ev").value;
+    var dat=new Date();
+
+    if (new Date(DateFond).getTime() <=  new Date(DateFond2).getTime())
+    {
+        document.getElementById("errorDF1").textContent = "date superiour a la date de l evenment ";
+        document.getElementById("errorDF1").style.color = "red";
+        return 0;
+    }
+    else
+    {
+        document.getElementById("errorDF1").textContent = "date verified";
+        document.getElementById("errorDF1").style.color="green";
+        return 1;
+    }
+}
+
+
+
+
+
+
+    function ajout(event) {
+    if ( saisirNom() == 0 || saisirNom2() == 0 ||saisirdate_fin() == 0  ||  spot()==0 || numBer()==0 || saisirdate_recuperation()==0  )
+    
+        event.preventDefault();
+    }
+
+
+  
+
+
+
+
+
+
+
+</script> -->
+
+</div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
-                    href="https://www.wrappixel.com/">wrappixel.com</a>
+            <footer class="footer text-center">  <a
+                    href="https://www.wrappixel.com/"></a>
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -321,10 +537,6 @@
 
 
 
-
-    
-                        
-                        
 </body>
 
 </html>
