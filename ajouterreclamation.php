@@ -1,5 +1,5 @@
 <?php
-include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/EventC.php";
+include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/reclamationC.php";
 
  // create 
  $reclamation = null;
@@ -8,23 +8,20 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/EventC.php";
  $reclamationC = new reclamationC();
  if (
      isset($_POST["id_rec"]) &&
-     isset($_POST["nom"]) &&		
-     isset($_POST["dateenvoi"]) &&
-     isset($_POST["sujet"]) && 
+     isset($_POST["email"]) &&		
+     isset($_POST["objet"]) && 
      isset($_POST["contenu"])
  ) {
      if (
-         !empty($_POST['nom']) &&
-         !empty($_POST["dateenvoi"]) && 
-         !empty($_POST["sujet"]) && 
+         !empty($_POST['email']) &&
+         !empty($_POST["objet"]) && 
          !empty($_POST["contenu"])
      ) {
        
          $reclamation =new reclamation(
              $_POST['id_rec'],
-             $_POST['nom'],
-             $_POST['dateenvoi'], 
-             $_POST['sujet'],
+             $_POST['email'], 
+             $_POST['objet'],
              $_POST['contenu']
          );
          $reclamationC->ajouterreclamation($reclamation);
@@ -221,41 +218,41 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/EventC.php";
            <form name="f" action="" method="POST">
   <div class="container">
 <br>
-<br>
-<label for="exampleInputPassword1" class="">id_rec:</label >
-    <input type="text" name="id_rec" class="form-control" id_rec="id_rec" aria-describedby="emailHelp" value="....">
-    <span id_rec="id_rec" style="color:#FF0000"> </span>
- 
-  <div class="">
-    <label for="exampleInputPassword1" class="">nom:</label >
-    <input type="text"  name="nom" class="form-control" id_rec="nom" required minlength="3" maxlength="20" size="10">
-    <span id_rec="cmon" style="color:#FF0000"> </span>
-</div>
-  <div class="">
-    <label for="exampleInputPassword1" class="">dateenvoi:</label>
-    <input type="date"  name="dateenvoi" class="form-control" id_rec="cdate">
-    <span id_rec="cdate" style="color:#FF0000"> </span>
-  </div>
-   
-  <div class="">
-    <label for="exampleInputPassword1" class="">sujet:</label>
-    <input type="text"  name="sujet" class="form-control" id_rec="">
-  </div>
-  <div class="">
-    <label for="exampleInputPassword1" class="">contenu:</label>
-    <input type="text"  name="contenu" class="form-control" id_rec="">
-  </div>
+<div class="row">
+
+				<div class="col-xs-12 col-sm-12 col-md-12 wow bounceIn animated" data-wow-delay=".1s">
+
+					<form action="#" method="post">
+						<div class="ajax-hidden">
+                        <label for="exampleInputPassword1" class="sr-only">id:</label >
+    <input type="text" placeholder="identifiant" name="id_rec" class="form-control" id_rec="id_rec"  >
+    <span id="cid" style="color:#FF0000"> </span>
+							<div class="col-xs-12 col-sm-6 col-md-6 form-group wow fadeInUp animated">
+								<label for="c_name" class="sr-only">Objet</label>
+								<input type="text" placeholder="Objet" name="objet" class="form-control" id="objet" required="">
+							</div>
+
+							<div data-wow-delay=".1s" class="col-xs-12 col-sm-6 col-md-6 form-group wow fadeInUp animated">
+								<label for="c_email" class="sr-only">Email</label>
+								<input type="email" placeholder="E-mail" name="email" class="form-control" id="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" placeholder="e.g. info@envato.com" required="">
+							</div>
+
+							<div data-wow-delay=".2s" class="col-xs-12 col-sm-12 col-md-12 form-group wow fadeInUp animated">
+								<textarea placeholder="Message" rows="7" name="contenu" id="contenu" class="form-control" required=""></textarea>
+							</div>
+
+							<button data-wow-delay=".3s" class="btn btn-sm btn-block wow fadeInUp animated" type="submit">Send reclamation</button>
+						</div>
+						<div class="ajax-response"></div>
+					</form>
+
+				</div>              
+			</div>
   
  
   <br>
 
-<p><input type="submit"  value="Ajouter" class="btn btn-info"  name="ajouter" onclick="return verif()">&nbsp;
-<button type="reset" class="btn btn-danger">Reset</button></p>
 
-
-
-
-</form>
 
         <!-- ================================================================================================= -->
 

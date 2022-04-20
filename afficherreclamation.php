@@ -1,5 +1,5 @@
 <?php
-    include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/EventC.php";
+    include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/reclamationC.php";
 	$reclamation=new reclamationC();
 	$listereclamation=$reclamation->afficherreclamation(); 
 ?>
@@ -165,7 +165,7 @@
                                 <li><a href="Dashboard.html" class="fw-normal">Home</a></li>
                             </ol>
                             <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">front
+                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">back
                                 </a>
                         </div>
                     </div>
@@ -183,9 +183,9 @@
 		 
 			<tr>
 				<th>id_rec</th>
-				<th>nom</th>	
-                <th>dateenvoi</th>
-				<th>sujet</th>
+				<th>email</th>	
+
+				<th>objet</th>
                 <th>contenu</th>
               
                 
@@ -196,9 +196,8 @@
 			?>
 			<tr>
 				<td><?php echo $reclamationC['id_rec']; ?></td>
-				<td><?php echo $reclamationC['nom']; ?></td>
-				<td><?php echo $reclamationC['dateenvoi']; ?></td>
-                <td><?php echo $reclamationC['sujet']; ?></td>
+				<td><?php echo $reclamationC['email']; ?></td>
+                <td><?php echo $reclamationC['objet']; ?></td>
                 <td><?php echo $reclamationC['contenu']; ?></td>
               
 			<td><?php

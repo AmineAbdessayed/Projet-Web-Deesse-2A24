@@ -1,5 +1,5 @@
 <?php
-include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/EventC.php";
+include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/reclamationC.php";
  // create 
  $reclamation = null;
 
@@ -7,24 +7,20 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/EventC.php";
  $reclamationC = new reclamationC();
  if (
      isset($_POST["id_rec"]) &&
-     isset($_POST["nom"]) &&		
-     isset($_POST["dateenvoi"]) &&
-     isset($_POST["sujet"]) && 
+     isset($_POST["email"]) &&		
+     isset($_POST["objet"]) && 
      isset($_POST["contenu"])
  ) {
-     if (
-         !empty($_POST['nom']) &&
-         !empty($_POST["dateenvoi"]) && 
-         !empty($_POST["sujet"]) && 
+     if (!empty($_POST["id_rec"]) &&
+         !empty($_POST['email']) &&
+         !empty($_POST["objet"]) && 
          !empty($_POST["contenu"])
      ) {
        
          $reclamation = new reclamation(
-            $_GET['deletevar'],
-             $_POST['nom'],
-             $_POST['dateenvoi'], 
-             $_POST['date_fin'],
-             $_POST['sujet'],
+            $_POST['id_rec'],
+             $_POST['email'],
+             $_POST['objet'],
              $_POST['contenu']
          );
          $reclamationC->modifierreclamation($reclamation);
@@ -168,7 +164,7 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/EventC.php";
                             </a>
                         </li>
   <li class="sid_recebar-item">
-                            <a class="sid_recebar-link waves-effect waves-dark sid_recebar-link" href="afficher_utilisateur.php"
+                            <a class="sid_recebar-link waves-effect waves-dark sid_recebar-link" href="afficherreclamation.php"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hid_recden="true"></i>
                                 <span class="hid_rece-menu">Gestion des reclamations</span>
@@ -218,27 +214,36 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/EventC.php";
   <div class="container">
 <br>
 <br>
-  
-    <input type="hid_recden" name="id_rec" class="form-control" id_rec="" aria-describedby="emailHelp" value="0">
- 
- 
-  <div class="">
-    <label for="exampleInputPassword1" class="">nom:</label>
-    <input type="text"  name="nom" class="form-control" id_rec="">
-  </div>
-  <div class="">
-    <label for="exampleInputPassword1" class="">dateenvoi:</label>
-    <input type="date"  name="dateenvoi" class="form-control" id_rec="">
-  </div>
-    
-  <div class="">
-    <label for="exampleInputPassword1" class="">sujet:</label>
-    <input type="text"  name="sujet" class="form-control" id_rec="">
-  </div>
-  <div class="">
-    <label for="exampleInputPassword1" class="">contenu:</label>
-    <input type="text"  name="contenu" class="form-control" id_rec="">
-  </div>
+<div class="row">
+
+				<div class="col-xs-12 col-sm-12 col-md-12 wow bounceIn animated" data-wow-delay=".1s">
+
+					<form action="#" method="post">
+					<div class="col-xs-12 col-sm-6 col-md-6 form-group wow fadeInUp animated">
+								<label for="c_name" class="sr-only">id</label>
+								<input type="identifiant" placeholder="number" name="id_rec" class="form-control" id="id_rec" required="">
+							</div>
+                        
+							<div class="col-xs-12 col-sm-6 col-md-6 form-group wow fadeInUp animated">
+								<label for="c_name" class="sr-only">Objet</label>
+								<input type="text" placeholder="Objet" name="objet" class="form-control" id="objet" required="">
+							</div>
+
+							<div data-wow-delay=".1s" class="col-xs-12 col-sm-6 col-md-6 form-group wow fadeInUp animated">
+								<label for="c_email" class="sr-only">Email</label>
+								<input type="email" placeholder="E-mail" name="email" class="form-control" id="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" placeholder="e.g. info@envato.com" required="">
+							</div>
+
+							<div data-wow-delay=".2s" class="col-xs-12 col-sm-12 col-md-12 form-group wow fadeInUp animated">
+								<textarea placeholder="Message" rows="7" name="contenu" id="contenu" class="form-control" required=""></textarea>
+							</div>
+
+							
+						<div class="ajax-response"></div>
+					</form>
+
+				</div>              
+			</div>
   
  
   <br>

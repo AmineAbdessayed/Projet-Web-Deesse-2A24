@@ -31,16 +31,15 @@
 		}
 		function ajouterreclamation($reclamation){
 			
-			$sql="INSERT INTO reclamations (id_rec,Nom,dateenvoi,sujet,contenu) 
-			VALUES (:id_rec,:nom,:dateenvoi,:sujet,:contenu)";
+			$sql="INSERT INTO reclamation (id_rec,email,objet,contenu) 
+			VALUES (:id_rec,:email,:objet,:contenu)";
 			$db = config::getConnexion();
 			try{
 				$query = $db->prepare($sql);
 				$query->execute([
 					':id_rec' => $reclamation->getid_rec(),
-					':nom' => $reclamation->getnom(),
-					':dateenvoi' => $reclamation->getdateenvoi(),
-					':sujet' => $reclamation->getsujet(),
+					':email' => $reclamation->getemail(),
+					':objet' => $reclamation->getobjet(),
 					':contenu' => $reclamation->getcontenu()
 				]);		
 			} 
@@ -49,7 +48,7 @@
 			}			
 		}
 		function recupererreclamation($id_rec){
-			$sql="SELECT * from reclamations where id_rec=$id_rec";
+			$sql="SELECT * from reclamation where id_rec=$id_rec";
 			$db = config::getConnexion();
 			try{
 				$query=$db->prepare($sql);
@@ -67,18 +66,17 @@
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(
-					'UPDATE reclamations SET 
-						nom= :nom,
-						dateenvoi= :dateenvoi,  
+					'UPDATE reclamation SET 
+						email= :email, 
+						objet= :objet,
 						contenu=:contenu
 					WHERE id_rec= :id_rec'
 				);
-				$query->execute([
-					':Nom' => $reclamation->getnom(),
-					':date_debut' => $reclamation->getdateenvoi(),
-					':DateInscription' => $reclamation->getsujet(),
-					':id_rec' => $reclamation->getid_rec(),
+				$query->execute([':id_rec' => $reclamation->getid_rec(),
+					':email' => $reclamation->getemail(),
+					':objet' => $reclamation->getobjet(),
 					':contenu' => $reclamation->getcontenu()
+					
 
 				]);
 				echo $query->rowCount() . " records UPDATED successfully <br>";
