@@ -7,7 +7,7 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/reclamationC.php";
  // create an instance of the controller
  $reclamationC = new reclamationC();
  if (
-     isset($_POST["id_rec"]) &&
+     
      isset($_POST["email"]) &&		
      isset($_POST["objet"]) && 
      isset($_POST["contenu"])
@@ -16,10 +16,11 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/reclamationC.php";
          !empty($_POST['email']) &&
          !empty($_POST["objet"]) && 
          !empty($_POST["contenu"])
-     ) {
+     ) { $id_rec="SELECT id_rec FROM reclamation";
+        $id_re=$id_re+1;
        
          $reclamation =new reclamation(
-             $_POST['id_rec'],
+             $_POST['id_re'],
              $_POST['email'], 
              $_POST['objet'],
              $_POST['contenu']
@@ -224,9 +225,8 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/reclamationC.php";
 
 					<form action="#" method="post">
 						<div class="ajax-hidden">
-                        <label for="exampleInputPassword1" class="sr-only">id:</label >
-    <input type="text" placeholder="identifiant" name="id_rec" class="form-control" id_rec="id_rec"  >
-    <span id="cid" style="color:#FF0000"> </span>
+                        
+                       
 							<div class="col-xs-12 col-sm-6 col-md-6 form-group wow fadeInUp animated">
 								<label for="c_name" class="sr-only">Objet</label>
 								<input type="text" placeholder="Objet" name="objet" class="form-control" id="objet" required="">
