@@ -1,7 +1,24 @@
 <?php
 	include 'C:/xampp/htdocs/temp/config.php';
 	include_once 'C:/xampp/htdocs/temp/Model/categorie.php';
+
+	
 	class categorieC {
+		public function afficherproduits ($id_categorie) {
+			try {
+				$pdo=getConnection();
+				$query=$pdo->prepare(
+					'SELECT *FROM produit where categorie = :id '
+				);
+				$query->execute([
+					'id' => $id_categorie
+				]);
+				return $query->fetchAll();
+	
+			}catch (PDOException $e) {
+				$e->getMessage();
+			}
+		}
 		function affichercategorie(){
 			$sql="SELECT * FROM categorie";
 			$db = config::getConnexion();

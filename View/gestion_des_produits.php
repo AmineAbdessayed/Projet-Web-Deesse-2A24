@@ -24,6 +24,15 @@
 <?php
     include_once 'C:/xampp/htdocs/temp/Model/produit.php';
     include_once 'C:/xampp/htdocs/temp/Controller/produitC.php';
+    include_once 'C:/xampp/htdocs/temp/Model/categorie.php';
+    include_once 'C:/xampp/htdocs/temp/Controller/categorieC.php';
+
+    $error = "";
+
+
+    // create an instance of the controller
+    $categorieC = new categorieC();
+    $listecategorie=$categorieC->affichercategorie();
 
     $error = "";
 
@@ -40,7 +49,12 @@
         isset($_POST["id_produit"]) &&
 		isset($_POST["nom_produit"]) &&
         isset($_POST["prix_produit"])&& 
-        isset($_POST["quantite_produit"])
+        isset($_POST["quantite_produit"])&&
+        isset($_POST["categorie"])&&
+        isset($_POST["image_produit"])&&
+        isset($_POST["description_produit"])
+
+
 
     ) {
         if (
@@ -48,14 +62,19 @@
 			!empty($_POST["id_produit"]) &&
             !empty($_POST["nom_produit"]) &&
             !empty($_POST["prix_produit"]) && 
-            !empty($_POST["quantite_produit"])
+            !empty($_POST["quantite_produit"])&&
+            !empty($_POST["categorie"])&&
+            !empty($_POST["image_produit"])&&
+            !empty($_POST["description_produit"]) 
         ) {
             $produit = new produit(
             $_POST["id_produit"],
             $_POST["nom_produit"],
             $_POST["prix_produit"],
-            $_POST["quantite_produit"]
-
+            $_POST["quantite_produit"],
+            $_POST["categorie"],
+            $_POST["image_produit"],
+            $_POST["description_produit"]
             );
             $produitC->ajouterproduit($produit);
             header('Location:gestion_des_produits.php');
@@ -297,12 +316,15 @@
                                                                                                                                 <label class="float-label">Id</label>
 
 <span class="form-bar"></span>
+
+
                                                             </div>
                                                             <div class="form-group form-default">
-                                                                <input type="text"  id="nom_produit" name="nom_produit"  class="form-control"required="">
+                                                                <input type="text"  id="nom_produit" name="nom_produit"  class="form-control"required="" onclick="return saisirNom()">
                                                                                                                                <label class="float-label">Nom</label>
 
  <span class="form-bar"></span>
+ <p id="errorName" class="error"></p>
                                                             </div>
                                                           
                                                             <div class="form-group form-default">
@@ -316,6 +338,34 @@
                                                                                                                                 <label class="float-label">Quantite</label>
                                                                                                                                 
 <span class="form-bar"></span>
+                                                            </div>
+                                                            <div class="form-group form-default">categorie :<select name="categorie" id="categorie">
+  <?php 
+  foreach ($listecategorie as $categorie){
+  ?>
+  <option value="<?php echo $categorie['id_categorie']; ?>"><?php echo $categorie['nom']; ?></option>
+  <?php
+  }
+  ?>
+</select>
+</div>
+<div class="button-container">
+        <label class="label">  ajouter une image</label>
+        <div class="field-body">
+          <div class="button-container">
+            <label class="upload control">
+               upload 
+              <input type="file" id="image_produit" name="image_produit" required="required">
+            </label>
+            
+          </div>
+        </div>
+      </div><br>
+<div class="form-group form-default">
+                                                                <input type="text"  id="description_produit" name="description_produit"  class="form-control"required="">
+                                                                                                                               <label class="float-label">DESCRIPTION</label>
+
+ <span class="form-bar"></span>
                                                             </div>
                                                             <input type="submit" value="Ajouter">
                                                            
@@ -334,6 +384,8 @@
                                                                 </form>
                                                             </td>
                                                     </div>
+
+                                                    
                                     
                                     
                                       
@@ -349,6 +401,9 @@
                                                     <td>NOM</td>
                                                     <td>PRIX</td>
                                                     <td>QUANTITE</td>
+                                                    <td>CATEGORIE</td>
+                                                    <td>IMAGE</td>
+                                                    <td>DESCRIPTION</td>
                                                     <td>Modifier</td>
                                                     <td>Supprimer</td>
                                                 </tr>
@@ -371,6 +426,14 @@
                                                             <td>
                                                             <?php echo $produit['quantite_produit']; ?>
                                                             </td>
+                                                            <td>
+                                                            <?php echo $produit['categorie']; ?>
+                                                            </td>
+                                                            <td data-label="Name"><?php echo'<img src="plugins/images/'.$produit['image_produit'].'"width="100;" height="100" alt="Image">'  ?></td>
+                                                    
+                                                            <td>
+                                                            <?php echo $produit['description_produit']; ?>
+                                                            </td>
                                                         
                                                            
                                                             <td>
@@ -392,6 +455,7 @@
                                              
                                                 </div>
                                                     
+                                                
                                                 
                                                 
                                                            
@@ -461,8 +525,49 @@
     <script src="js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
+    
+
+    <script>
+    
+    function saisirNom() {
+                var name = document.getElementById('nom_produit').value;
+                var regex = /^[A-Za-z]+$/;
 
 
+                if (!(regex.test(name))) {
+                    document.getElementById("errorName").textContent = "Name has to be composed of letters only!";
+                    document.getElementById("errorName").style.color = "red";
+                    return 0;
+                } 
+                else if (name[0] == name[0].toLowerCase()) {
+                    document.getElementById("errorName").textContent = "Name has to start by a capital letter!";
+                    document.getElementById("errorName").style.color = "red";
+                    return 0;
+                }
+                 else {
+                    document.getElementById("errorName").textContent = "Name Verified";
+                    document.getElementById("errorName").style.color = "green";
+                    return 1;
+                }
+    }
+
+
+function ajout(event) {
+    if ( saisirNom() == 0 || numBer()==0 | )
+    
+        event.preventDefault();
+    }
+
+
+  
+
+
+
+
+
+
+
+</script>
 
 
     

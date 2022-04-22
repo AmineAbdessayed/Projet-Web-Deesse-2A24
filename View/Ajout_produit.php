@@ -670,8 +670,6 @@
     function saisirNom() {
                 var name = document.getElementById('nom_ev').value;
                 var regex = /^[A-Za-z]+$/;
-
-
                 if (!(regex.test(name))) {
                     document.getElementById("errorName").textContent = "Name has to be composed of letters only!";
                     document.getElementById("errorName").style.color = "red";
@@ -691,8 +689,6 @@
     function saisirNom2() {
                 var name = document.getElementById('lieu').value;
                 var regex = /^[A-Za-z]+$/;
-
-
                 if (!(regex.test(name))) {
                     document.getElementById("errorName2").textContent = "Name has to be composed of letters only!";
                     document.getElementById("errorName2").style.color = "red";
@@ -711,14 +707,10 @@
     }
    
    
-
     
-
-
 function spot()
 {
     var nbm = document.getElementById("spot").value;
-
     if (nbm<1 || nbm>2) {
         document.getElementById("errorspot").textContent = "nombre  doit entre 1 et 2 ";
         document.getElementById("errorspot").style.color = "red";
@@ -730,15 +722,10 @@ function spot()
         document.getElementById("errorspot").style.color = "green";
             return 1;
     }
-
-
-
 }
-
 function saisirdate_recuperation() {
     var DateFond = document.getElementById("date_ev").value;
     var dat=new Date();
-
     if (new Date(DateFond).getTime() <= dat.getTime())
     {
         document.getElementById("errorDF").textContent = "date superiour a la date actuel ";
@@ -757,7 +744,6 @@ function saisirdate_fin() {
     var DateFond = document.getElementById("date_fin").value;
     var DateFond2 = document.getElementById("date_ev").value;
     var dat=new Date();
-
     if (new Date(DateFond).getTime() <=  new Date(DateFond2).getTime())
     {
         document.getElementById("errorDF1").textContent = "date superiour a la date de l evenment ";
@@ -771,27 +757,12 @@ function saisirdate_fin() {
         return 1;
     }
 }
-
-
-
-
-
-
     function ajout(event) {
     if ( saisirNom() == 0 || saisirNom2() == 0 ||saisirdate_fin() == 0  ||  spot()==0 || numBer()==0 || saisirdate_recuperation()==0  )
     
         event.preventDefault();
     }
-
-
   
-
-
-
-
-
-
-
 </script> -->
 
 
