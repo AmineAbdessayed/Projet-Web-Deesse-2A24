@@ -14,13 +14,13 @@
 	
 
     if (
-        isset($_POST["id_categorie"]) &&
+        //isset($_POST["id_categorie"]) &&
         isset($_POST["nom"])
 
     ) {
         if (
            
-			!empty($_POST["id_categorie"]) &&
+			//!empty($_POST["id_categorie"]) &&
             !empty($_POST["nom"])
         ) {
             $categorie = new categorie(
@@ -283,11 +283,7 @@
                                                     </div>
                                                     <form action=""     class="form-material" method="POST" >
                                                    
-                                                    <div class="form-group form-default">
-                                                                <input type="number" name="id_categorie" id="id_categorie"   class="form-control" required="" >
-                                                                <span class="form-bar"></span>
-                                                                <label class="float-label">Identifiant</label>
-                                                            </div>
+                                                
                                                             
                                                           
                                                             

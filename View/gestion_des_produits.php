@@ -46,7 +46,7 @@
 	
 
     if (
-        isset($_POST["id_produit"]) &&
+       // isset($_POST["id_produit"]) &&
 		isset($_POST["nom_produit"]) &&
         isset($_POST["prix_produit"])&& 
         isset($_POST["quantite_produit"])&&
@@ -59,7 +59,7 @@
     ) {
         if (
            
-			!empty($_POST["id_produit"]) &&
+			//!empty($_POST["id_produit"]) &&
             !empty($_POST["nom_produit"]) &&
             !empty($_POST["prix_produit"]) && 
             !empty($_POST["quantite_produit"])&&
@@ -153,6 +153,18 @@
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
                         href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                 </div>
+                <li><div id="google_translate_element"></div>
+
+                                <script type="text/javascript">
+                                function googleTranslateElementInit() {
+                                  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                                }
+                                </script>
+                                
+                                <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script></li>
+                    </ul>
+
+
                 <!-- ============================================================== -->
                 <!-- End Logo -->
                 <!-- ============================================================== -->
@@ -163,7 +175,10 @@
                                 href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                         </li>
                     </ul>
-                    <!-- ============================================================== -->
+
+                    
+                    <!-- ======
+                    ======================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
@@ -311,12 +326,7 @@
                                                     </div>
                                                     <form action=""     class="form-material" method="POST" >
                                                    
-                                                    <div class="form-group form-default">
-                                                                <input type="number" name="id_produit" id="id_produit"   class="form-control" required="">
-                                                                                                                                <label class="float-label">Id</label>
-
-<span class="form-bar"></span>
-
+                                         
 
                                                             </div>
                                                             <div class="form-group form-default">
@@ -362,10 +372,12 @@
         </div>
       </div><br>
 <div class="form-group form-default">
+
                                                                 <input type="text"  id="description_produit" name="description_produit"  class="form-control"required="">
                                                                                                                                <label class="float-label">DESCRIPTION</label>
 
  <span class="form-bar"></span>
+
                                                             </div>
                                                             <input type="submit" value="Ajouter">
                                                            
@@ -387,10 +399,28 @@
 
                                                     
                                     
+ 
+
+                        
                                     
                                       
                                     
-                                    
+                                                    <?php
+                                            $bdd= new PDO('mysql:host=localhost;dbname=oussamaa;charset=utf8','root','');
+                                            $userParPage =2;
+                                            $userTotalReq=$bdd->query('SELECT id_produit FROM produit');
+                                            $userTotal=$userTotalReq->rowCount();
+                                            $pagesTotales=ceil($userTotal/$userParPage);
+                                            if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0 AND $_GET['page']<= $pagesTotales){
+                                            $_GET['page']=intval($_GET['page']);
+                                            $pageCourante=$_GET['page'];
+                                            }else{
+                                                $pageCourante=1;
+                                            }
+                                            
+                                            $depart=($pageCourante-1)*$userParPage;
+                                            
+                                            ?>
                                   
                                     <div class="table-responsive">
                                        
@@ -410,6 +440,8 @@
                                          </thead>
                                          <tbody>
                                          <?php
+                                         $listeproduit=$bdd->query('SELECT * FROM produit ORDER BY id_produit ASC LIMIT '.$depart.','.$userParPage);
+
                                                             foreach($listeproduit as $produit){
                                                            
                                                         ?>
@@ -454,12 +486,25 @@
                                                 </table>
                                              
                                                 </div>
+                                                
                                                     
                                                 
                                                 
                                                 
                                                            
-                                                        </div>
+                                                        
+                                            </div>
+                                            <div id="pagination">
+                                                    <?php 
+        for($i=1;$i<=$pagesTotales;$i++){
+            if($i == $pageCourante){
+            echo $i.' ';
+            }else{
+            echo '<a href="gestion_des_produits.php?page='.$i.'">'.$i.'</a> ';
+        }
+    }
+
+        ?>
                                                     </div>
                                                     <!-- Main-body end -->
                                                     <div id="styleSelector">
