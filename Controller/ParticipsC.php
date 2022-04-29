@@ -2,6 +2,8 @@
 	
 	include_once '../config.php';
 	include_once "$_SERVER[DOCUMENT_ROOT]/projet/Model/Particips.php";
+	include_once "$_SERVER[DOCUMENT_ROOT]/projet/Model/Event.php";
+
 	
 	
 	class ParticipsC {
@@ -55,8 +57,8 @@
 		}
 		function ajouterP($Particips){
 			
-			$sql="INSERT INTO particips (id_p,Nom_p,Prenom,adresse_mail) 
-			VALUES (:id_p,:Nom_p,:Prenom,:adresse_mail)";
+			$sql="INSERT INTO particips (id_p,Nom_p,Prenom,adresse_mail,id_event) 
+			VALUES (:id_p,:Nom_p,:Prenom,:adresse_mail,:id_event)";
 			$db = config::getConnexion();
 			try{
 				$query = $db->prepare($sql);
@@ -64,7 +66,9 @@
 					':id_p' => $Particips->getid_p(),
 					':Nom_p' => $Particips->getNom_p(),
 					':Prenom' => $Particips->getPrenom(),
-					':adresse_mail' => $Particips->getadresse_mail()
+					':adresse_mail' => $Particips->getadresse_mail(),
+					':id_event' => $Particips->getid_event()
+
 					
 				]);		
 			} 
@@ -94,7 +98,8 @@
 					'UPDATE Particips SET 
 						Nom_p= :Nom_p, 
 						Prenom= :Prenom, 
-						adresse_mail= :adresse_mail
+						adresse_mail= :adresse_mail,
+						id_event= :id_event
 						
 					WHERE id_p= :id_p'
 				);
@@ -102,7 +107,9 @@
 					':Nom_p' => $Particips->getNom_p(),
 					':Prenom' => $Particips->getPrenom(),
 					':adresse_mail' => $Particips->getadresse_mail(),
-					':id_p' => $Particips->getid_p()
+					':id_p' => $Particips->getid_p(),
+					':id_event' => $Particips->getid_event()
+
 
 				]);
 				echo $query->rowCount() . " records UPDATED successfully <br>";

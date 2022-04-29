@@ -192,6 +192,7 @@
 	<th>Nom_p</th>	
     <th>Prenom</th>
 	<th>adresse_mail</th>
+	<th>id_event</th>
 	
  
  
@@ -206,6 +207,8 @@
 	<td><?php echo $ParticipsC['Nom_p']; ?></td>
 	<td><?php echo $ParticipsC['Prenom']; ?></td>
 	<td><?php echo $ParticipsC['adresse_mail']; ?></td>
+	<td><?php echo $ParticipsC['id_event']; ?></td>
+
 
  
  

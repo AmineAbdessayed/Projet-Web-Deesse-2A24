@@ -1,7 +1,13 @@
 <?php
 include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/ParticipsC.php";
+include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/EventC.php";
+
  // create 
  $Particips = null;
+
+ $Evenement = null;
+ $EvenementC=new EvenementC();
+$listeEvenement=$EvenementC->afficherEvent();
 
  // create an instance of the controller
  $ParticipsC = new ParticipsC();
@@ -9,13 +15,17 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/ParticipsC.php";
      isset($_POST["id_p"]) &&
      isset($_POST["Nom_p"]) &&       
      isset($_POST["Prenom"]) &&
-     isset($_POST["adresse_mail"]) 
+     isset($_POST["adresse_mail"]) &&
+     isset($_POST["id_event"]) 
+
      
  ) {
      if (
          !empty($_POST['Nom_p']) &&
          !empty($_POST["Prenom"]) && 
-         !empty($_POST["adresse_mail"]) 
+         !empty($_POST["adresse_mail"]) &&
+         !empty($_POST["id_event"]) 
+
          
      ) {
        
@@ -23,7 +33,9 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/ParticipsC.php";
              $_POST['id_p'],
              $_POST['Nom_p'],
              $_POST['Prenom'], 
-             $_POST['adresse_mail']
+             $_POST['adresse_mail'],
+             $_POST['id_event']
+
             
          );
          $ParticipsC->ajouterP($Particips);
@@ -247,6 +259,18 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/ParticipsC.php";
     <label for="exampleInputPassword1" class="">adresse_mail:</label>
     <input type="text"  name="adresse_mail" class="form-control" id="">
   </div>
+
+  <label>Nom_ID_Event</label>
+                     <select class="form-control" name="id_event" id="id_event">
+                                                            
+                         <?php 
+             foreach ($listeEvenement as $Evenement){
+          ?>
+ <option value="<?php echo $Evenement['id_event']; ?>"><?php echo $Evenement['Nom']; ?>-<?php echo $Evenement['id_event']; ?></option>
+        <?php
+        }
+        ?>
+    </select>
 
  
   <br>

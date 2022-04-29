@@ -8,7 +8,7 @@ include_once "$_SERVER[DOCUMENT_ROOT]/projet/Controller/ParticipsC.php";
  if (
      isset($_POST["id_p"]) &&
      isset($_POST["Nom_p"]) &&		
-     isset($_POST["PreNom_p"]) &&
+     isset($_POST["Prenom"]) &&
      isset($_POST["adresse_mail"]) 
     
  ) {
