@@ -1,8 +1,9 @@
 <?php
   
   include_once 'C:/xampp/htdocs/temp/Model/produit.php';
-    include_once '../Controller/produitC.php';
-   
+  include_once '../Controller/produitC.php';
+  include_once 'C:/xampp/htdocs/temp/Model/categorie.php';
+  include_once 'C:/xampp/htdocs/temp/Controller/categorieC.php';   
 
     $error = "";
 
@@ -13,88 +14,27 @@
 
 	$listeproduit=$produitC->afficherproduit(); 
 
-
-
-    
-
-
-    
-?>
-
-<?php
-    include_once 'C:/xampp/htdocs/temp/Model/produit.php';
-    include_once 'C:/xampp/htdocs/temp/Controller/produitC.php';
-    include_once 'C:/xampp/htdocs/temp/Model/categorie.php';
-    include_once 'C:/xampp/htdocs/temp/Controller/categorieC.php';
-
-    $error = "";
-
-
-    // create an instance of the controller
-    $categorieC = new categorieC();
-    $listecategorie=$categorieC->affichercategorie();
-
-    $error = "";
-
-    // create product
-    $produit = null;
-
-    // create an instance of the controller
-    $produitC = new produitC();
-  
-
-	
-
-    if (
-       // isset($_POST["id_produit"]) &&
-		isset($_POST["nom_produit"]) &&
-        isset($_POST["prix_produit"])&& 
-        isset($_POST["quantite_produit"])&&
-        isset($_POST["categorie"])&&
-        isset($_POST["image_produit"])&&
-        isset($_POST["description_produit"])
-
-
-
-    ) {
-        if (
-           
-			//!empty($_POST["id_produit"]) &&
-            !empty($_POST["nom_produit"]) &&
-            !empty($_POST["prix_produit"]) && 
-            !empty($_POST["quantite_produit"])&&
-            !empty($_POST["categorie"])&&
-            !empty($_POST["image_produit"])&&
-            !empty($_POST["description_produit"]) 
-        ) {
-            $produit = new produit(
-            $_POST["id_produit"],
-            $_POST["nom_produit"],
-            $_POST["prix_produit"],
-            $_POST["quantite_produit"],
-            $_POST["categorie"],
-            $_POST["image_produit"],
-            $_POST["description_produit"]
-            );
-            $produitC->ajouterproduit($produit);
-            header('Location:gestion_des_produits.php');
-        }
-        else
-            $error = "Missing information";
+    if(isset($_POST['trier']))
+    {
+    $listeproduit=$produitC->trierproduitASC();
+    session_start();
     }
 
 
+
+
+    
+
+
     
 ?>
 
 
-
-
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -118,7 +58,10 @@
 </head>
 
 <body>
-    <!-- ============================================================== -->
+
+  
+
+         <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
     <div class="preloader">
@@ -315,226 +258,93 @@
                                 
                             </div>
                         </div>
-                        
-                    <!-- Column -->
-                    <!-- Column -->
-                    
-                                    
-                                <div class="card-block">
-                                                    <div id="error">
-                                                        <?php echo $error; ?>
-                                                    </div>
-                                                    <form action=""     class="form-material" method="POST" >
-                                                   
-                                         
-
-                                                            </div>
-                                                            <div class="form-group form-default">
-                                                                <input type="text"  id="nom_produit" name="nom_produit"  class="form-control"required="" onclick="return saisirNom()">
-                                                                                                                               <label class="float-label">Nom</label>
-
- <span class="form-bar"></span>
- <p id="errorName" class="error"></p>
-                                                            </div>
-                                                          
-                                                            <div class="form-group form-default">
-                                                                <input type="number" id="prix_produit" name="prix_produit" class="form-control" required="">
-                                                                                                                                <label class="float-label">Prix</label>
-
-<span class="form-bar"></span>
-                                                            </div>
-                                                            <div class="form-group form-default">
-                                                                <input type="number"  id="quantite_produit" name="quantite_produit"  class="form-control"required="">
-                                                                                                                                <label class="float-label">Quantite</label>
-                                                                                                                                
-<span class="form-bar"></span>
-                                                            </div>
-                                                            <div class="form-group form-default">categorie :<select name="categorie" id="categorie">
-  <?php 
-  foreach ($listecategorie as $categorie){
-  ?>
-  <option value="<?php echo $categorie['id_categorie']; ?>"><?php echo $categorie['nom']; ?></option>
-  <?php
-  }
-  ?>
-</select>
-</div>
-<div class="button-container">
-        <label class="label">  ajouter une image</label>
-        <div class="field-body">
-          <div class="button-container">
-            <label class="upload control">
-               upload 
-              <input type="file" id="image_produit" name="image_produit" required="required">
-            </label>
-            
-          </div>
-        </div>
-      </div><br>
-<div class="form-group form-default">
-
-                                                                <input type="text"  id="description_produit" name="description_produit"  class="form-control"required="">
-                                                                                                                               <label class="float-label">DESCRIPTION</label>
-
- <span class="form-bar"></span>
-                                                            </div>
-                                                            <div class="p-15 p-b-0">
-
-                                                            <input type="submit" value="Ajouter produit">
-                                                        </form>
-
-
-
-                                                      
-                                                    </div>
-
-                                                    
+                                                                    
                                     
  
+                                                    
+
+                                            
+                                      
+                                    
                                                    
-
-
-
-
-
-
-
-
- <td>                                            <div class="p-15 p-b-0">
-
-                                                                <form method="POST" action="Ajout_categorie.php">
-                                                                    <input class="sidebar-link waves-effect waves-dark sidebar-link" type="submit" name="Categorie" value=" Ajouter Categorie">
-                                                                </form>
-                                                            </td>
-                                                            </form>
-
-                                                
-                                                <br>
-                                                            </div>
-
-                                            <div class="p-15 p-b-0">
-
-                                                <form method="POST" action="Trier.php">
-                                                <input type="submit"  name="trier" id="trier"  class="btn  btn-info" value="Trier" ></input>
-                                                <!--<input type="submit"  name="trierdesc"  id="trierdesc"  class="btn  btn-info" value="trierdesc" ></input>-->
-                                                
-
-                                                </form>
-
-                                                
-                                                <br>
-                                           </div>
-                        
-                                    
-                                      
-                                    
-                                                    <?php
-                                            $bdd= new PDO('mysql:host=localhost;dbname=oussamaa;charset=utf8','root','');
-                                            $userParPage =2;
-                                            $userTotalReq=$bdd->query('SELECT id_produit FROM produit');
-                                            $userTotal=$userTotalReq->rowCount();
-                                            $pagesTotales=ceil($userTotal/$userParPage);
-                                            if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0 AND $_GET['page']<= $pagesTotales){
-                                            $_GET['page']=intval($_GET['page']);
-                                            $pageCourante=$_GET['page'];
-                                            }else{
-                                                $pageCourante=1;
-                                            }
-                                            
-                                            $depart=($pageCourante-1)*$userParPage;
-                                            
-                                            ?>
                                            
+                                    
+                                        <div class="card-block table-border-style">
+                                            <div class="table-responsive">
+                                            <?php
+$bdd= new PDO('mysql:host=localhost;dbname=oussamaa;charset=utf8','root','');
+$produit=$bdd->query('SELECT id_produit,nom_produit,prix_produit,quantite_produit,categorie,image_produit,description_produit FROM produit ORDER BY id_produit ASC');
+if(isset($_GET['q']) AND !empty($_GET['q'])){
+$q = htmlspecialchars($_GET['q']);
+//var_dump('salut');
+    $produit=$bdd->query('SELECT id_produit,nom_produit,prix_produit,quantite_produit,categorie,image_produit,description_produit FROM produit WHERE nom_produit LIKE "%'.$q.'%" ORDER BY id_produit ASC');
+if($produit->rowCount() == 0){
+   // var_dump('boucle entrée');
+    $produit=$bdd->query('SELECT nom_produit FROM produit WHERE CONCAT(id_produit,nom_produit,prix_produit,quantite_produit,categorie,image_produit,description_produit) LIKE "%'.$q.'%" ORDER BY id_produit ASC');
+}
 
-                                      
-                                    <div class="table-responsive">
-                                       
-                                                  <table  id ="user1" class="table table-hover">
-                                                  <button onclick="makePDF()" class="btn btn-info waves-effect waves-light">Print</button>
+}
+?>
+<form align="center" method="GET">
+<input type="search" name="q" placeholder="Recherche..." />
+<input  type="submit" value="valider" />
 
-                                                 
+</form>
 
-                                         <thead>
-                                                <tr>
-                                                    <td> ID</td>
-                                                    <td>NOM</td>
-                                                    <td>PRIX</td>
-                                                    <td>QUANTITE</td>
-                                                    <td>CATEGORIE</td>
-                                                    <td>IMAGE</td>
-                                                    <td>DESCRIPTION</td>
-                                                    <td>Modifier</td>
-                                                    <td>Supprimer</td>
-                                                </tr>
-                                         </thead>
-                                         <tbody>
-                                         <?php
-                                         $listeproduit=$bdd->query('SELECT * FROM produit ORDER BY id_produit ASC LIMIT '.$depart.','.$userParPage);
-
-                                                            foreach($listeproduit as $produit){
-                                                           
-                                                        ?>
+<?php if($produit->rowCount() > 0) { ?>
+    <form method="POST" action="gestion_des_produits.php">
+                                                <input type="submit"  name="trier" id="trier"  class="btn  btn-info" value="back" ></input>
+                                                
+                                            
+                                                </form>
+    <table id="user" border="1" align="center" class="table table-hover">
+                                                    <thead>
                                                         <tr>
-                                                            <td>
-                                                            <?php echo $produit['id_produit']; ?>
-                                                             </td>
-                                                            <td>
-                                                            <?php echo $produit['nom_produit']; ?>
-                                                            </td>
-                                                            <td>
-                                                            <?php echo $produit['prix_produit']; ?>
-                                                            </td>
-                                                            <td>
-                                                            <?php echo $produit['quantite_produit']; ?>
-                                                            </td>
-                                                            <td>
-                                                            <?php echo $produit['categorie']; ?>
-                                                            </td>
-                                                            <td data-label="Name"><?php echo'<img src="plugins/images/'.$produit['image_produit'].'"width="100;" height="100" alt="Image">'  ?></td>
-                                                    
-                                                            <td>
-                                                            <?php echo $produit['description_produit']; ?>
-                                                            </td>
-                                                        
-                                                           
-                                                            <td>
-                                                                <form method="POST" action="Modifier_produit.php">
-                                                                    <input class="btn btn-warning waves-effect waves-light" type="submit" name="Modifier" value="Modifier">
-                                                                    <input type="hidden" value=<?PHP echo $produit['id_produit']; ?> name="id_produit">
-                                                                </form>
-                                                            </td>
                                                             
-                                                            <td>
-                                                                <a  href="Supprimer_produit.php?id_produit=<?php echo $produit['id_produit']; ?>">  <input class="btn btn-danger waves-effect waves-light" type="submit" value="Supprimer"></a>
-                                                            </td>
-                                                           
+                                                            <th>id</th>
+                                                            <th>nom</th>
+                                                            <th>prix</th>
+                                                            <th>quantite</th>
+                                                            <th>categorie</th>
+                                                            <th>image</th>
+                                                            <th>description</th>
+                                                            
                                                         </tr>
-                                                        </tbody>
-                                                    <?php } ?>
-
-                                                </table>
-                                             
-                                                </div>
-                                                
+                                                    </thead>
+    <?php while($a=$produit->fetch()){ ?>
+        
                                                     
-                                                
-                                                
-                                                
-                                                           
-                                                        
+        <tr>
+				<td><?php echo $a['id_produit']; ?></td>
+				<td><?php echo $a['nom_produit']; ?></td>
+				<td><?php echo $a['prix_produit']; ?></td>
+				<td><?php echo $a['quantite_produit']; ?></td>
+                <td><?php echo $a['categorie']; ?></td>
+                <td><?php echo $a['image_produit']; ?></td>
+                <td><?php echo $a['description_produit']; ?></td>
+				<!-- <!-- <td>
+					<!-- <form method="POST" action="update.php">
+				<button class="btn-primary btn"> <a href="update.php" class="text-white"> Update </a> </button> 
+				<input type="hidden" value=<?PHP echo $a['id_produit']; ?> name="id_users">
+					</form> -->
+				
+                                        
+			</tr>
+<?php } ?>
+    </table>
+    <?php } ?>
                                             </div>
-                                            <div id="pagination">
-                                                    <?php 
-        for($i=1;$i<=$pagesTotales;$i++){
-            if($i == $pageCourante){
-            echo $i.' ';
-            }else{
-            echo '<a href="gestion_des_produits.php?page='.$i.'">'.$i.'</a> ';
-        }
-    }
+                                        </div>
+                                    </div>
+                                    <!-- Hover table card end -->
 
-        ?>
-                                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              
+
+                    </div>
                                                     <!-- Main-body end -->
                                                     <div id="styleSelector">
 
@@ -601,64 +411,10 @@
     <script src="js/custom.js"></script>
     
 
-    <script>
-    
-    function saisirNom() {
-                var name = document.getElementById('nom_produit').value;
-                var regex = /^[A-Za-z]+$/;
-
-
-                if (!(regex.test(name))) {
-                    document.getElementById("errorName").textContent = "Name has to be composed of letters only!";
-                    document.getElementById("errorName").style.color = "red";
-                    return 0;
-                } 
-                else if (name[0] == name[0].toLowerCase()) {
-                    document.getElementById("errorName").textContent = "Name has to start by a capital letter!";
-                    document.getElementById("errorName").style.color = "red";
-                    return 0;
-                }
-                 else {
-                    document.getElementById("errorName").textContent = "Name Verified";
-                    document.getElementById("errorName").style.color = "green";
-                    return 1;
-                }
-    }
-
-
-function ajout(event) {
-    if ( saisirNom() == 0 || numBer()==0 | )
-    
-        event.preventDefault();
-    }
-
-
-  
-
-
-
-
-
-
-
-</script>
-<script>
-            function makePDF(){
-                var printMe=document.getElementById('user1');
-                var wme=window.open("","","width:700,height:900");
-                wme.document.write(printMe.outerHTML);
-                wme.document.close();
-                wme.focus();
-                wme.print();
-                wme.close();
-                
-            }
-        </script>
-
-
     
                         
                         
+
 </body>
 
 </html>

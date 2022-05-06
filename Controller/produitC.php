@@ -118,7 +118,50 @@
 		die('Erreur: ' . $e->getMessage());
 		}
 	    }*/
+		function trierproduitDESC()
+		{
+		$sql = "SELECT * from produit ORDER BY id_prduit DESC";
+		$db = config2::getConnexion();
+		try {
+		$req = $db->query($sql);
+		return $req;
+		} 
+		catch (Exception $e)
+	 	{
+		die('Erreur: ' . $e->getMessage());
+		}
+		}
 
 
-	}
+		function trierproduitASC()
+		{
+		$sql = "SELECT * from produit ORDER BY id_produit ASC";
+		$db = config2::getConnexion();
+		try {
+		$req = $db->query($sql);
+		return $req;
+		} 
+		catch (Exception $e)
+	 	{
+		die('Erreur: ' . $e->getMessage());
+		}
+	    }
+		function getProduct($id){
+			$sql="SELECT * from produit where id_produit= $id";
+			$db = config2::getConnexion();
+			try{
+				$query=$db->prepare($sql);
+				$query->execute();
+	
+				$produit=$query->fetch();
+				return $produit;
+			} 
+			catch (Exception $e){
+				die('error: '.$e->getMessage());
+			}
+		}
+
+}
+
+	
 ?>

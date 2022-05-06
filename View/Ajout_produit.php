@@ -1,45 +1,25 @@
 <?php
-    include_once 'C:/xampp/htdocs/temp/Model/produit.php';
-    include_once 'C:/xampp/htdocs/temp/Controller/produitC.php';
+  
+  include_once 'C:/xampp/htdocs/temp/Model/produit.php';
+    include_once '../Controller/produitC.php';
+   
 
     $error = "";
 
-    // create product
     $produit = null;
 
-    // create an instance of the controller
     $produitC = new produitC();
   
 
-	
+	$listeproduit=$produitC->afficherproduit(); 
 
-    if (
-        isset($_POST["id_produit"]) &&
-		isset($_POST["nom_produit"]) &&
-        isset($_POST["prix_produit"])&& 
-        isset($_POST["quantite_produit"])
 
-    ) {
-        if (
-           
-			!empty($_POST["id_produit"]) &&
-            !empty($_POST["nom_produit"]) &&
-            !empty($_POST["prix_produit"]) && 
-            !empty($_POST["quantite_produit"])
-        ) {
-            $produit = new produit(
-            $_POST["id_produit"],
-            $_POST["nom_produit"],
-            $_POST["prix_produit"],
-            $_POST["quantite_produit"]
-
-            );
-            $produitC->ajouterproduit($produit);
-            header('Location:gestion_des_produits.php');
-        }
-        else
-            $error = "Missing information";
+    if(isset($_POST['trier']))
+    {
+        $listeproduit=$produitC->trierproduit();
+    session_start();
     }
+    
 
 
     
@@ -47,546 +27,453 @@
 
 
 
+
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="en">
 
 <head>
-    <title>Ajout produit </title>
-    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Déesse</title>
+    <link rel="canonical" href="http://localhost/temp/View/deesse.php" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <!-- Custom CSS -->
+   <link href="css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 10]>
+    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="description" content="Mega Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
-    <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
-    <meta name="author" content="codedthemes" />
-    <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-    <!-- Required Fremwork -->
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-    <!-- waves.css -->
-    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-    <!-- themify-icons line icon -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-    <!-- ico font -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
-    <!-- Style.css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
-
+<![endif]-->
 </head>
 
 <body>
-    <!-- Pre-loader start -->
-    <div class="theme-loader">
-        <div class="loader-track">
-            <div class="preloader-wrapper">
-                <div class="spinner-layer spinner-blue">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-                <div class="spinner-layer spinner-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-                
-                <div class="spinner-layer spinner-yellow">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-                
-                <div class="spinner-layer spinner-green">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
         </div>
     </div>
-    <!-- Pre-loader end -->
-    <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
-            <nav class="navbar header-navbar pcoded-header">
-                <div class="navbar-wrapper">
-                    <div class="navbar-logo">
-                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
-                            <i class="ti-menu"></i>
-                        </a>
-                        <div class="mobile-search waves-effect waves-light">
-                            <div class="header-search">
-                                <div class="main-search morphsearch-search">
-                                    <div class="input-group">
-                                        <span class="input-group-addon search-close"><i class="ti-close"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Keyword">
-                                        <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="index.html">
-                            <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
-                        </a>
-                        <a class="mobile-options waves-effect waves-light">
-                            <i class="ti-more"></i>
-                        </a>
-                    </div>
-            
-                    <div class="navbar-container container-fluid">
-                        <ul class="nav-left">
-                            <li>
-                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
-                            </li>
-                            <li class="header-search">
-                                <div class="main-search morphsearch-search">
-                                    <div class="input-group">
-                                        <span class="input-group-addon search-close"><i class="ti-close"></i></span>
-                                        <input type="text" class="form-control">
-                                        <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
-                                    <i class="ti-fullscreen"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav-right">
-                            <li class="header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <i class="ti-bell"></i>
-                                    <span class="badge bg-c-red"></span>
-                                </a>
-                                <ul class="show-notification">
-                                    <li>
-                                        <h6>Notifications</h6>
-                                        <label class="label label-danger">New</label>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Anwar khiari</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-4.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Joseph William</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-3.jpg" alt="Generic placeholder image">
-                                            <div class="media-body">
-                                                <h5 class="notification-user">Sara Soudein</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="user-profile header-notification">
-                                <a href="#!" class="waves-effect waves-light">
-                                    <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>John Doe</span>
-                                    <i class="ti-angle-down"></i>
-                                </a>
-                                <ul class="show-notification profile-notification">
-                                    <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="user-profile.html">
-                                            <i class="ti-user"></i> Profile
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="email-inbox.html">
-                                            <i class="ti-email"></i> My Messages
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="auth-lock-screen.html">
-                                            <i class="ti-lock"></i> Lock Screen
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="auth-normal-sign-in.html">
-                                            <i class="ti-layout-sidebar-left"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" href="dashboard.html">
+                       
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
+                <li><div id="google_translate_element"></div>
+
+                                <script type="text/javascript">
+                                function googleTranslateElementInit() {
+                                  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                                }
+                                </script>
+                                
+                                <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script></li>
+                    </ul>
+
+
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav d-none d-md-block d-lg-none">
+                        <li class="nav-item">
+                            <a class="nav-toggler nav-link waves-effect waves-light text-white"
+                                href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                        </li>
+                    </ul>
+
+                    
+                    <!-- ======
+                    ======================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li>
+                            <a class="profile-pic" href="#">
+                                <img src="plugins/images/users/ouss1.png" alt="user-img" width="36"
+                                    class="img-circle"><span class="text-white font-medium">Oussama</span></a>
+                        </li>
+                        
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
                 </div>
             </nav>
-    
-            <div class="pcoded-main-container">
-                <div class="pcoded-wrapper">
-                    <nav class="pcoded-navbar">
-                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
-                        <div class="pcoded-inner-navbar main-menu">
-                            <div class="">
-                                <div class="main-menu-header">
-                                    <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
-                                    <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
-                                    </div>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item">
+                            
+                        </li>
+                        <li class="text-center p-20 upgrade-btn">
+                            <a href="http://localhost/temp/View/index.html"
+                                class="btn d-grid btn-danger text-white" target="_blank">
+                                Déesse</a>
+                        </li>
+                        <li class="sidebar-item pt-2">
+                            
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.html"
+                                aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Gestion des utlisateurs</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="basic-table.html"
+                                aria-expanded="false">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                                <span class="hide-menu">gestion des evenements</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html"
+                                aria-expanded="false">
+                                <i class="fa fa-font" aria-hidden="true"></i>
+                                <span class="hide-menu">Gestion de commantaires </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
+                                aria-expanded="false">
+                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                <span class="hide-menu">Gestion de commandes</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="blank.html"
+                                aria-expanded="false">
+                                <i class="fa fa-columns" aria-hidden="true"></i>
+                                <span class="hide-menu">Gestion de produits</span>
+                            </a>
+                        </li>
+                    
+                       
+                    </ul>
+
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper" style="min-height: 250px;">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                
+                   
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-12">
+                        <h5 class="m-b-10">Gestion de produits</h5>
+                            <div class="white-box">
+                                <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/mk2.jpeg"> 
+                                            
+                                           
+                                        
+                                    
                                 </div>
+                                    
+                                
+                            </div>
+                        </div>
                         
-                                <div class="main-menu-content">
-                                    <ul>
-                                        <li class="more-details">
-                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                            <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="p-15 p-b-0">
-                                <form class="form-material">
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search Friend</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Layout</div>
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li class="">
-                                    <a href="index.html" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Components</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="accordion.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Accordion</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="breadcrumb.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Breadcrumbs</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="button.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Button</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="tabs.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Tabs</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="color.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Color</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="label-badge.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Label Badge</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="tooltip.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Tooltip</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="typography.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Typography</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="notification.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Notification</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="icon-themify.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Themify</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                            
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Forms &amp; Tables</div>
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li class="active">
-                                    <a href="form-elements-component.html" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form Components</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="bs-basic-table.html" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic Table</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
+                    <!-- Column -->
+                    <!-- Column -->
                     
-                            </ul>
-                    
-                            <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Chart &amp; Maps</div>
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li>
-                                    <a href="chart.html" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Chart</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="map-google.html" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Maps</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Pages</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="auth-normal-sign-in.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Login</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="auth-sign-up.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Register</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="sample-page.html" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Sample Page</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                    
-                            </ul>
-                    
-                            <div class="pcoded-navigation-label" data-i18n="nav.category.other">Other</div>
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu ">
-                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                        <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Menu Levels</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class="">
-                                            <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Menu Level 2.1</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class="pcoded-hasmenu ">
-                                            <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.main">Menu Level 2.2</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                            <ul class="pcoded-submenu">
-                                                <li class="">
-                                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Menu Level 3.1</span>
-                                                        <span class="pcoded-mcaret"></span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="">
-                                            <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">Menu Level 2.3</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                            
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                    <div class="pcoded-content">
-                        <!-- Page-header start -->
-                        <div class="page-header">
-                            <div class="page-block">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <div class="page-header-title">
-                                            <h5 class="m-b-10">Ajout_produit</h5>
-                                            <p class="m-b-0">Permet d'ajouter des produits</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="breadcrumb-title">
-                                            <li class="breadcrumb-item">
-                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="#!">Form Components</a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="#!">Basic Form Inputs</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Page-header end -->
-                        <div class="pcoded-inner-content">
-                            <!-- Main-body start -->
-                            <div class="main-body">
-                                <div class="page-wrapper">
-                                  
-                                    <!-- Page body start -->
-                                    <div class="page-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>Ajout produit</h5>
-                                                        <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
-                                                    </div>
-                                                    <div class="card-block">
+                                    
+                                <div class="card-block">
                                                     <div id="error">
                                                         <?php echo $error; ?>
                                                     </div>
                                                     <form action=""     class="form-material" method="POST" >
                                                    
-                                                    <div class="form-group form-default">
-                                                                <input type="number" name="id_produit" id="id_produit"   class="form-control" required="">
-                                                                <span class="form-bar"></span>
-                                                                <label class="float-label">Id</label>
+                                         
+
                                                             </div>
                                                             <div class="form-group form-default">
-                                                                <input type="text"  id="nom_produit" name="nom_produit"  class="form-control"required="">
-                                                                <span class="form-bar"></span>
-                                                                <label class="float-label">Nom</label>
+                                                                <input type="text"  id="nom_produit" name="nom_produit"  class="form-control"required="" onclick="return saisirNom()">
+                                                                                                                               <label class="float-label">Nom</label>
+
+ <span class="form-bar"></span>
+ <p id="errorName" class="error"></p>
                                                             </div>
                                                           
                                                             <div class="form-group form-default">
                                                                 <input type="number" id="prix_produit" name="prix_produit" class="form-control" required="">
-                                                                <span class="form-bar"></span>
-                                                                <label class="float-label">Prix</label>
+                                                                                                                                <label class="float-label">Prix</label>
+
+<span class="form-bar"></span>
                                                             </div>
                                                             <div class="form-group form-default">
                                                                 <input type="number"  id="quantite_produit" name="quantite_produit"  class="form-control"required="">
-                                                                <span class="form-bar"></span>
-                                                                <label class="float-label">Quantite</label>
+                                                                                                                                <label class="float-label">Quantite</label>
+                                                                                                                                
+<span class="form-bar"></span>
                                                             </div>
-                                                            <input type="submit" value="Add">
+                                                            <div class="form-group form-default">categorie :<select name="categorie" id="categorie">
+  <?php 
+  foreach ($listecategorie as $categorie){
+  ?>
+  <option value="<?php echo $categorie['id_categorie']; ?>"><?php echo $categorie['nom']; ?></option>
+  <?php
+  }
+  ?>
+</select>
+</div>
+<div class="button-container">
+        <label class="label">  ajouter une image</label>
+        <div class="field-body">
+          <div class="button-container">
+            <label class="upload control">
+               upload 
+              <input type="file" id="image_produit" name="image_produit" required="required">
+            </label>
+            
+          </div>
+        </div>
+      </div><br>
+<div class="form-group form-default">
+
+                                                                <input type="text"  id="description_produit" name="description_produit"  class="form-control"required="">
+                                                                                                                               <label class="float-label">DESCRIPTION</label>
+
+ <span class="form-bar"></span>
+
+                                                            </div>
+                                                            <input type="submit" value="Ajouter">
+                                                           
+                        
+                     
                                                         </form>
+
+
+
+
+
+                                                        <td>
+                                                                <form method="POST" action="Ajout_categorie.php">
+                                                                    <input class="sidebar-link waves-effect waves-dark sidebar-link" type="submit" name="Cathegorie" value="Cathegorie">
+                                                                    
+                                                                </form>
+
+                                                            </td>
+
+
+
+                                                           
                                                     </div>
-                                                </div>
-                                            </div>
+
+                                                   
+ 
+
+                        
+                                    
+                                      
+                                    
+                                                    <?php
+                                            $bdd= new PDO('mysql:host=localhost;dbname=oussamaa;charset=utf8','root','');
+                                            $userParPage =2;
+                                            $userTotalReq=$bdd->query('SELECT id_produit FROM produit');
+                                            $userTotal=$userTotalReq->rowCount();
+                                            $pagesTotales=ceil($userTotal/$userParPage);
+                                            if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0 AND $_GET['page']<= $pagesTotales){
+                                            $_GET['page']=intval($_GET['page']);
+                                            $pageCourante=$_GET['page'];
+                                            }else{
+                                                $pageCourante=1;
+                                            }
                                             
-                                           
-                                        </div>
+                                            $depart=($pageCourante-1)*$userParPage;
+                                            
+                                            ?>
+                                  
+                                    <div class="table-responsive">
+                                       
+                                                  <table class="table table-hover">
+
+
+                                                  <?php
+$bdd= new PDO('mysql:host=localhost;dbname=oussamaa;charset=utf8','root','');
+$produit=$bdd->query('SELECT id_produit,nom_produit,prix_produit,quantité_produit,categorie,image_produit,description_produit FROM produit ORDER BY prix_produit ASC');
+if(isset($_GET['q']) AND !empty($_GET['q'])){
+$q = htmlspecialchars($_GET['q']);
+//var_dump('salut');
+    $produit=$bdd->query('SELECT id_produit,nom_produit,prix_produit,quantité_produit,categorie,image_produit,description_produit FROM produit WHERE nom_produit LIKE "%'.$q.'%" ORDER BY prix_produit ASC');
+if($produit->rowCount() == 0){
+   // var_dump('boucle entrée');
+    $produit=$bdd->query('SELECT id_produit FROM produit WHERE CONCAT(id_produit,nom_produit,prix_produit,quantité_produit,categorie,image_produit,description_produit) LIKE "%'.$q.'%" ORDER BY prix_produit ASC');
+}
+
+}
+?>
+<form align="center" method="GET">
+<input type="search" name="q" placeholder="Recherche..." />
+<input  type="submit" value="valider" />
+
+</form>
+
+<?php if($produit->rowCount() > 0) { ?>
+    <form method="POST" action="gestion_des_produits.php">
+                                                <input type="submit"  name="trier" id="trier"  class="btn  btn-info" value="trier" ></input>
+                                                
+                                            
+                                                </form>
+</form>
+<table border ="1" align="center" class="table table-hover">
+
+                                                
+                                    
+                                         <thead>
+                                                <tr>
+                                                    <td> ID</td>
+                                                    <td>NOM</td>
+                                                    <td>PRIX</td>
+                                                    <td>QUANTITE</td>
+                                                    <td>CATEGORIE</td>
+                                                    <td>IMAGE</td>
+                                                    <td>DESCRIPTION</td>
+                                                    <td>Modifier</td>
+                                                    <td>Supprimer</td>
+                                                </tr>
+                                         </thead>
+                                         <?php while($a=$produit->fetch()){ ?>
+
+                                         <tbody>
+                                         <?php
+                                         $listeproduit=$bdd->query('SELECT * FROM produit ORDER BY id_produit ASC LIMIT '.$depart.','.$userParPage);
+
+                                                            foreach($listeproduit as $produit){
+                                                           
+                                                        ?>
+                                                     <tr>
+				<td><?php echo $a['id_produit']; ?></td>
+				<td><?php echo $a['nom_produit']; ?></td>
+				<td><?php echo $a['prix_produit']; ?></td>
+				<td><?php echo $a['quantite_produit']; ?></td>
+                <td><?php echo $a['prix_produit']; ?></td>
+                <td><?php echo $a['categorie']; ?></td>
+                <td><?php echo $a['image_produit']; ?></td>
+                <td><?php echo $a['description_produit']; ?></td>
+              
+				<!-- <!-- <td>
+					<!-- <form method="POST" action="update.php">
+				<button class="btn-primary btn"> <a href="update.php" class="text-white"> Update </a> </button> 
+				<input type="hidden" value=<?PHP echo $a['ref_lv']; ?> name="id_users">
+					</form> -->
+				<td> 
+                <button class="btn btn-primary"><a href="Modifier_produit.php?ref_lv=<?php echo $a['ref_lv']; ?>">Edit</a>  </button>
+                <button class="btn-danger btn"><a href="Supprimer_produit.php?ref_lv=<?php echo $a['ref_lv']; ?>">Delete</a>  </button>
+                
+				</td>
                                         
+			</tr>
+            <?php } ?>
+    </table>
+    <?php } ?>
+                                                        </tbody>
+                                                    <?php } ?>
+
+                                                </table>
+                                             
+                                                </div>
+                                                
+                                                    
+                                                
+                                                
                                                 
                                                            
-                                                           
-                                                        </div>
+                                                        
+                                            </div>
+                                            <div id="pagination">
+                                                    <?php 
+        for($i=1;$i<=$pagesTotales;$i++){
+            if($i == $pageCourante){
+            echo $i.' ';
+            }else{
+            echo '<a href="gestion_des_produits.php?page='.$i.'">'.$i.'</a> ';
+        }
+    }
+
+        ?>
                                                     </div>
                                                     <!-- Main-body end -->
                                                     <div id="styleSelector">
@@ -599,77 +486,68 @@
                                 </div>
                             </div>
 
+                                                
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                </div>
 
-                            <!-- Warning Section Starts -->
-                            <!-- Older IE warning message -->
-<!--[if lt IE 10]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers
-        to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
+                
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center">  <a
+                    href="https://www.wrappixel.com/"></a>
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
     </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-<!-- Warning Section Ends -->
-<!-- Required Jquery -->
-<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
-<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
-<!-- jquery slimscroll js -->
-<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js "></script>
-<!-- waves js -->
-<script src="assets/pages/waves/js/waves.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app-style-switcher.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.js"></script>
+    
 
-<!-- modernizr js -->
-<script type="text/javascript" src="assets/js/SmoothScroll.js"></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
-<!-- Custom js -->
-<script src="assets/js/pcoded.min.js"></script>
-<script src="assets/js/vertical-layout.min.js "></script>
-<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script type="text/javascript" src="assets/js/script.js"></script>
-
-
-<!-- <script>
+    <script>
     
     function saisirNom() {
-                var name = document.getElementById('nom_ev').value;
+                var name = document.getElementById('nom_produit').value;
                 var regex = /^[A-Za-z]+$/;
+
+
                 if (!(regex.test(name))) {
                     document.getElementById("errorName").textContent = "Name has to be composed of letters only!";
                     document.getElementById("errorName").style.color = "red";
@@ -686,89 +564,29 @@
                     return 1;
                 }
     }
-    function saisirNom2() {
-                var name = document.getElementById('lieu').value;
-                var regex = /^[A-Za-z]+$/;
-                if (!(regex.test(name))) {
-                    document.getElementById("errorName2").textContent = "Name has to be composed of letters only!";
-                    document.getElementById("errorName2").style.color = "red";
-                    return 0;
-                } 
-                else if (name[0] == name[0].toLowerCase()) {
-                    document.getElementById("errorName2").textContent = "Name has to start by a capital letter!";
-                    document.getElementById("errorName2").style.color = "red";
-                    return 0;
-                }
-                 else {
-                    document.getElementById("errorName2").textContent = "Name Verified";
-                    document.getElementById("errorName2").style.color = "green";
-                    return 1;
-                }
-    }
-   
-   
-    
-function spot()
-{
-    var nbm = document.getElementById("spot").value;
-    if (nbm<1 || nbm>2) {
-        document.getElementById("errorspot").textContent = "nombre  doit entre 1 et 2 ";
-        document.getElementById("errorspot").style.color = "red";
-        return 0;
-    }
-    else
-    {
-        document.getElementById("errorspot").textContent = "Number Verified";
-        document.getElementById("errorspot").style.color = "green";
-            return 1;
-    }
-}
-function saisirdate_recuperation() {
-    var DateFond = document.getElementById("date_ev").value;
-    var dat=new Date();
-    if (new Date(DateFond).getTime() <= dat.getTime())
-    {
-        document.getElementById("errorDF").textContent = "date superiour a la date actuel ";
-        document.getElementById("errorDF").style.color = "red";
-        return 0;
-    }
-    else
-    {
-        document.getElementById("errorDF").textContent = "date verified";
-        document.getElementById("errorDF").style.color="green";
-        return 1;
-    }
-}
-function saisirdate_fin() {
-   
-    var DateFond = document.getElementById("date_fin").value;
-    var DateFond2 = document.getElementById("date_ev").value;
-    var dat=new Date();
-    if (new Date(DateFond).getTime() <=  new Date(DateFond2).getTime())
-    {
-        document.getElementById("errorDF1").textContent = "date superiour a la date de l evenment ";
-        document.getElementById("errorDF1").style.color = "red";
-        return 0;
-    }
-    else
-    {
-        document.getElementById("errorDF1").textContent = "date verified";
-        document.getElementById("errorDF1").style.color="green";
-        return 1;
-    }
-}
-    function ajout(event) {
-    if ( saisirNom() == 0 || saisirNom2() == 0 ||saisirdate_fin() == 0  ||  spot()==0 || numBer()==0 || saisirdate_recuperation()==0  )
+
+
+function ajout(event) {
+    if ( saisirNom() == 0 || numBer()==0 | )
     
         event.preventDefault();
     }
+
+
   
-</script> -->
 
 
 
 
 
+
+
+</script>
+
+
+    
+                        
+                        
 </body>
 
 </html>
