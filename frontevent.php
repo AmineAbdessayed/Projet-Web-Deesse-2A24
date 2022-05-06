@@ -184,7 +184,7 @@ foreach($listeEvenement as $EvenementC){
                     <div class='details'>
                     <h3><th > ".$EvenementC['Nom']."</th></h3>
                     <p><th>".$EvenementC['description']."</th></p>
-                    <a href='#' class='btn'>read more</a>
+                    <a href='http://localhost/contact/indexx.php' class='btn'>Intressted</a>
                     </div>
                     </div>
                 </div> ";

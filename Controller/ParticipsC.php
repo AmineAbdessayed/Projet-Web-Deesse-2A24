@@ -117,5 +117,30 @@
 				$e->getMessage();
 			}
 		}
+		function chercherP($id_p){
+
+			$sql="SELECT * FROM particips where id_p=$id_p";
+			$db = config::getConnexion();
+			try{
+			$liste = $db->query($sql);
+			return $liste;
+			}
+			catch(Exception $e){
+			die('Erreur:'. $e->getMessage());
+			}
+			}
+			
+		function click_P($id_p){
+			$sql="SELECT * FROM particips where id_p= $id_p";
+			$db = config::getConnexion();
+			try{
+			$liste = $db->query($sql);
+			return $liste;
+			}
+			catch(Exception $e){
+			die('Erreur:'. $e->getMeesage());
+			}
+			}
+
 	}
 ?>

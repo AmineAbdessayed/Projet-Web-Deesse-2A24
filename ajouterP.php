@@ -148,7 +148,7 @@ $listeEvenement=$EvenementC->afficherEvent();
                         <li>
                             <a class="profile-pic" href="#">
                                 <img src="C:/xampp/htdocs/projet/icon/amine.png" alt="user-img" width="50"
-                                    class="img-circle"><span class="text-white font-medium">Zeineb Ben Aziza</span></a>
+                                    class="img-circle"><span class="text-white font-medium">Amine Abdessayed</span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->

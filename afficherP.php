@@ -182,9 +182,21 @@
  <!-- =======================FORMULAIRE GESTION DES INGREDIENTS======================================= -->
  <div class="container">
 <button type ="submit" class="btn btn-primary my-5"><a href="ajouterP.php" class="text-light"> Ajouter un Particips</a> </button>
+
+
  <!-- =======================PHP======================================= -->
+ <form method="POST" action="chercherP.php"  name="f"  class="container-fluid">
+ <nav class="navbar navbar-light bg-light">
+ <div class="input-group">
+      <span class="input-group-text" id="basic-addon1">   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+</svg>&nbsp </span>
+      <input type="text" class="form-control" name="id_p" placeholder="Chercher par...">
+ <input type="SUBMIT" value="chercher" class="btn btn-success" name="chercher">
 
-
+    
+</nav>
+</form>
 	<table class="table">
 	
 	<tr>
@@ -228,10 +240,11 @@
 	</table>
  <!-- =========================END PHP===================================== -->
  <form action="" method="POST">
-   
-   <button type="submit" class="btn btn-secondary">Impression PDF</button>
+
    <button type="submit" name="TriASC" class="btn btn-outline-info">Tri Asc</button>
    <button type="submit" name="TriDESC" class="btn btn-outline-warning">Tri Desc</button>
+   <button  type ="submit" class="btn btn-primary my-5"><a href="genpdf.php"  class="text-light">Imprimer</a> </button>
+        <button onclick="window.print();" class="btn btn-primary" id="print-btn">Print</button>
             </form>	
 	
 
