@@ -1,0 +1,48 @@
+.u-section-1 .u-sheet-1 {
+  min-height: 899px;
+}
+
+.u-section-1 .u-checkout-1 {
+  min-height: 758px;
+  margin-bottom: 60px;
+  margin-top: 31px;
+  background-image: linear-gradient(#fffefc, #e9c18e);
+}
+
+.u-block-162f-61 {
+  font-weight: 700;
+}
+
+.u-block-162f-64 {
+  border-style: solid;
+}
+
+.u-section-1 .u-table-cell-1 {
+  font-weight: 700;
+  border-style: solid;
+}
+
+.u-section-1 .u-table-cell-2 {
+  border-style: solid;
+}
+
+.u-section-1 .u-table-cell-3 {
+  font-weight: 700;
+  border-style: solid;
+}
+
+.u-section-1 .u-table-cell-4 {
+  border-style: solid;
+  font-weight: 700;
+}
+
+.u-section-1 .u-btn-1 {
+  margin-top: 20px;
+  border-style: solid;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-checkout-1 {
+    height: auto;
+  }
+}

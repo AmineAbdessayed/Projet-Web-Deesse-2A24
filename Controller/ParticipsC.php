@@ -1,8 +1,8 @@
 <?php
 	
 	include_once '../config.php';
-	include_once "$_SERVER[DOCUMENT_ROOT]/projet/Model/Particips.php";
-	include_once "$_SERVER[DOCUMENT_ROOT]/projet/Model/Event.php";
+	include_once "$_SERVER[DOCUMENT_ROOT]/temp/Model/Particips.php";
+	include_once "$_SERVER[DOCUMENT_ROOT]/temp/Model/Event.php";
 
 	
 	
